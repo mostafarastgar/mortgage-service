@@ -2,6 +2,7 @@ package com.mostafa.ing.mortgage.presentation.controller;
 
 import com.mostafa.ing.mortgage.port.service.MortgageRateService;
 import com.mostafa.ing.mortgage.presentation.dto.MortgageRateDto;
+import com.mostafa.ing.mortgage.presentation.mapper.MortgageRateMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,7 @@ public class MortgageRateControllerImpl implements MortgageRateController {
     @Override
     public List<MortgageRateDto> getCurrentInterestRates() {
         return mortgageRateService.getMortgageRates().stream()
-                .map(entity -> new MortgageRateDto(entity.maturityPeriod().getYears(), entity.interestRate(), entity.lastUpdate()))
+                .map(MortgageRateMapper::toDto)
                 .toList();
     }
 }

@@ -5,6 +5,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
 
-@ConfigurationProperties(prefix = "mortgage.repository.inmemory")
+@ConfigurationProperties(prefix = "mortgage.repository.in-memory")
 public record InMemoryProperties(List<MortgageRateEntity> rates) {
 }

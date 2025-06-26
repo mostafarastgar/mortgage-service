@@ -1,6 +1,6 @@
 mortgage:
   repository:
-    inmemory:
+    in-memory:
       rates:
         - maturityPeriod: 30
           interestRate: 3.75
