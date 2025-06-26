@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.Period;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -23,11 +24,13 @@ class MortgageRateServiceImplTest {
     @InjectMocks
     private MortgageRateServiceImpl subject;
 
+    private final MortgageRate mortgageRate = new MortgageRate(Period.ofYears(30),
+            new BigDecimal("3.5"),
+            OffsetDateTime.now());
+
+
     @Test
     void testGetMortgageRates() {
-        MortgageRate mortgageRate = new MortgageRate(Period.ofYears(30),
-                new BigDecimal("3.5"),
-                OffsetDateTime.now());
         when(mortgageRateRepository.getMortgageRates()).thenReturn(List.of(mortgageRate));
 
         subject.getMortgageRates();
@@ -39,5 +42,17 @@ class MortgageRateServiceImplTest {
                 subject.getMortgageRates().getFirst().maturityPeriod());
         assertEquals(mortgageRate.lastUpdate(),
                 subject.getMortgageRates().getFirst().lastUpdate());
+    }
+
+    @Test
+    void testFindByPeriod() {
+        when(mortgageRateRepository.findByPeriod(mortgageRate.maturityPeriod()))
+                .thenReturn(Optional.of(mortgageRate));
+
+        var result = subject.findByPeriod(mortgageRate.maturityPeriod()).orElseThrow();
+
+        assertEquals(mortgageRate.interestRate(), result.interestRate());
+        assertEquals(mortgageRate.maturityPeriod(), result.maturityPeriod());
+        assertEquals(mortgageRate.lastUpdate(), result.lastUpdate());
     }
 }

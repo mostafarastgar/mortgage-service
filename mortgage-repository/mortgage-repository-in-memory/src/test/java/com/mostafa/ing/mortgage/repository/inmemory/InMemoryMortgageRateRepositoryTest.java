@@ -11,10 +11,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class InMemoryMortgageRateRepositoryTest {
@@ -25,6 +27,7 @@ class InMemoryMortgageRateRepositoryTest {
                     OffsetDateTime.now(ZoneId.systemDefault()))));
     @InjectMocks
     private InMemoryMortgageRateRepository subject;
+
     @Test
     void testGetMortgageRates() {
         List<MortgageRate> mortgageRates = subject.getMortgageRates();
@@ -36,5 +39,27 @@ class InMemoryMortgageRateRepositoryTest {
                 mortgageRates.getFirst().maturityPeriod().getYears());
         assertEquals(inMemoryProperties.rates().getFirst().lastUpdate(),
                 mortgageRates.getFirst().lastUpdate());
+    }
+
+    @Test
+    void testFindByPeriod() {
+        var period =
+                Period.ofYears(inMemoryProperties.rates().getFirst().maturityPeriod());
+        var mortgageRate = subject.findByPeriod(period).orElseThrow();
+
+        assertEquals(inMemoryProperties.rates().getFirst().interestRate(),
+                mortgageRate.interestRate());
+        assertEquals(inMemoryProperties.rates().getFirst().maturityPeriod(),
+                mortgageRate.maturityPeriod().getYears());
+        assertEquals(inMemoryProperties.rates().getFirst().lastUpdate(),
+                mortgageRate.lastUpdate());
+    }
+
+    @Test
+    void testNulFindByPeriod() {
+        var period = Period.ofMonths(1);
+        var mortgageRate = subject.findByPeriod(period);
+
+        assertTrue(mortgageRate.isEmpty());
     }
 }

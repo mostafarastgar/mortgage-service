@@ -8,7 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.time.Period;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,5 +22,11 @@ public class MortgageRateServiceImpl implements MortgageRateService {
     public List<MortgageRate> getMortgageRates() {
         log.info("Getting current mortgage rates at {}", OffsetDateTime.now());
         return mortgageRateRepository.getMortgageRates();
+    }
+
+    @Override
+    public Optional<MortgageRate> findByPeriod(Period period) {
+        log.debug("finding mortgage rate with period {}", period);
+        return mortgageRateRepository.findByPeriod(period);
     }
 }
