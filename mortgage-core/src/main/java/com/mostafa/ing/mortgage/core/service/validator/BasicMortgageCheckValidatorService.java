@@ -50,7 +50,7 @@ public class BasicMortgageCheckValidatorService implements MortgageValidatorServ
             if (mortgageCheck.loanValue().value()
                     .compareTo(mortgageCheck.income().value().multiply(INCOME_MULTIPLICAND)) > 0) {
                 return new ValidationResult(false, CODE_INVALID_BASED_ON_MAXIMUM_ALLOWED,
-                        "Loan value cannot be more than 4 times the income.");
+                        "Loan value cannot be more than " + INCOME_MULTIPLICAND + " times the income.");
             } else if (BigDecimal.ZERO.compareTo(mortgageCheck.income().value()) >= 0) {
                 return new ValidationResult(false, CODE_INVALID_INCOME,
                         "Income must be greater than zero.");

@@ -42,7 +42,12 @@ public class MortgageCheckServiceImpl implements MortgageCheckService {
                             "No mortgage rate found for the specified maturity period: "
                                     + mortgageCheck.maturityPeriod(), CODE_INVALID_MATURITY_PERIOD));
             return getMortgageCheckResult(mortgageCheck, monthlyPayment);
-        } else {
+        } else if(validationResult.validationCode().isBusinessError()) {
+            log.debug("Validation failed for mortgage check: {} with validation result: {}",
+                    mortgageCheck, validationResult.validationCode());
+            return new MortgageCheckResult(false, null,
+                    validationResult.validationCode(), validationResult.message());
+        } else{
             throw new ValidationException(validationResult.message(), validationResult
                     .validationCode());
         }
@@ -52,6 +57,6 @@ public class MortgageCheckServiceImpl implements MortgageCheckService {
         ValidationResult validationResult = mortgageValidatorService.
                         validateMonthlyPayment(mortgageCheck, monthlyPayment);
         return new MortgageCheckResult(validationResult.valid(), new Amount(Currency.EUR,
-                monthlyPayment));
+                monthlyPayment), validationResult.validationCode(), validationResult.message());
     }
 }

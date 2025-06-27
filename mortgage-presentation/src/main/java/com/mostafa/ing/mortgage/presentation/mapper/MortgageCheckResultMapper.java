@@ -7,7 +7,13 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class MortgageCheckResultMapper {
     public static MortgageCheckResultDto toDto(MortgageCheckResult mortgageCheckResult) {
-        return new MortgageCheckResultDto(mortgageCheckResult.feasible(),
-                AmountMapper.toDto(mortgageCheckResult.monthlyPayment()));
+        if (mortgageCheckResult.feasible()) {
+            return new MortgageCheckResultDto(true,
+                    AmountMapper.toDto(mortgageCheckResult.monthlyPayment()), null, null);
+        } else {
+            return new MortgageCheckResultDto(false,null,
+                    mortgageCheckResult.code().getValue(), mortgageCheckResult.message());
+
+        }
     }
 }
