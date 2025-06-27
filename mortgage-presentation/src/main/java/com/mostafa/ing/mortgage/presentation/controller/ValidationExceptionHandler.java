@@ -15,6 +15,7 @@ import java.util.Map;
 @RestControllerAdvice
 @Slf4j
 public class ValidationExceptionHandler {
+    public static final String INTERNAL_SERVER_ERROR_MESSAGE = "An unexpected error occurred. Please try again later.";
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErrorDto> handleValidationException(ValidationException ex) {
         log.error("Validation error occurred with code: {} and message: {}",
@@ -40,7 +41,7 @@ public class ValidationExceptionHandler {
         log.error("An unexpected error occurred: {}", ex.getMessage(), ex);
         ErrorDto response =
                 new ErrorDto(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()),
-                        "An unexpected error occurred. Please try again later.");
+                        INTERNAL_SERVER_ERROR_MESSAGE);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }
