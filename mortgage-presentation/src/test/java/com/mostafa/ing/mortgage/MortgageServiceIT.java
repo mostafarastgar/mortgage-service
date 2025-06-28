@@ -1,7 +1,7 @@
 package com.mostafa.ing.mortgage;
 
 import com.mostafa.ing.mortgage.exception.ValidationException;
-import com.mostafa.ing.mortgage.port.service.MortgageCheckService;
+import com.mostafa.ing.mortgage.port.inbound.service.MortgageCheckService;
 import com.mostafa.ing.mortgage.presentation.dto.AmountDto;
 import com.mostafa.ing.mortgage.presentation.dto.ErrorDto;
 import com.mostafa.ing.mortgage.presentation.dto.MortgageCheckDto;

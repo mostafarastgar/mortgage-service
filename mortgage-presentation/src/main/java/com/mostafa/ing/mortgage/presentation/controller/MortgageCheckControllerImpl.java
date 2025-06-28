@@ -1,7 +1,7 @@
 package com.mostafa.ing.mortgage.presentation.controller;
 
 
-import com.mostafa.ing.mortgage.port.service.MortgageCheckService;
+import com.mostafa.ing.mortgage.port.inbound.service.MortgageCheckService;
 import com.mostafa.ing.mortgage.presentation.dto.MortgageCheckDto;
 import com.mostafa.ing.mortgage.presentation.dto.MortgageCheckResultDto;
 import com.mostafa.ing.mortgage.presentation.mapper.MortgageCheckMapper;

@@ -1,4 +1,4 @@
-package com.mostafa.ing.mortgage.port.service;
+package com.mostafa.ing.mortgage.port.inbound.service;
 
 import com.mostafa.ing.mortgage.model.MortgageCheck;
 import com.mostafa.ing.mortgage.model.MortgageCheckResult;

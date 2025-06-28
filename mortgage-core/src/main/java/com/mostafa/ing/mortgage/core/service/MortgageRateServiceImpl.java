@@ -1,8 +1,8 @@
 package com.mostafa.ing.mortgage.core.service;
 
 import com.mostafa.ing.mortgage.model.MortgageRate;
-import com.mostafa.ing.mortgage.port.repository.MortgageRateRepository;
-import com.mostafa.ing.mortgage.port.service.MortgageRateService;
+import com.mostafa.ing.mortgage.port.outbound.repository.MortgageRateRepository;
+import com.mostafa.ing.mortgage.port.inbound.service.MortgageRateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

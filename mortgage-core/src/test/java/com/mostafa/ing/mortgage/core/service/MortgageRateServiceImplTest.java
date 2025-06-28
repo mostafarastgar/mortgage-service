@@ -1,7 +1,7 @@
 package com.mostafa.ing.mortgage.core.service;
 
 import com.mostafa.ing.mortgage.model.MortgageRate;
-import com.mostafa.ing.mortgage.port.repository.MortgageRateRepository;
+import com.mostafa.ing.mortgage.port.outbound.repository.MortgageRateRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

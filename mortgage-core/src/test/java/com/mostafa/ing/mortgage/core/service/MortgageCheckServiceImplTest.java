@@ -10,7 +10,7 @@ import com.mostafa.ing.mortgage.model.MortgageCheck;
 import com.mostafa.ing.mortgage.model.MortgageCheckResult;
 import com.mostafa.ing.mortgage.model.MortgageRate;
 import com.mostafa.ing.mortgage.model.ValidationCode;
-import com.mostafa.ing.mortgage.port.service.MortgageRateService;
+import com.mostafa.ing.mortgage.port.inbound.service.MortgageRateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

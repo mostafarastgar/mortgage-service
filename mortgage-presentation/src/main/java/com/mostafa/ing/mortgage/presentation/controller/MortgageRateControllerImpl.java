@@ -1,6 +1,6 @@
 package com.mostafa.ing.mortgage.presentation.controller;
 
-import com.mostafa.ing.mortgage.port.service.MortgageRateService;
+import com.mostafa.ing.mortgage.port.inbound.service.MortgageRateService;
 import com.mostafa.ing.mortgage.presentation.dto.MortgageRateDto;
 import com.mostafa.ing.mortgage.presentation.mapper.MortgageRateMapper;
 import lombok.RequiredArgsConstructor;

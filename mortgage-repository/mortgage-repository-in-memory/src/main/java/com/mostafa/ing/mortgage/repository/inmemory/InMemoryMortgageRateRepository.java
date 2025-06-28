@@ -1,7 +1,7 @@
 package com.mostafa.ing.mortgage.repository.inmemory;
 
 import com.mostafa.ing.mortgage.model.MortgageRate;
-import com.mostafa.ing.mortgage.port.repository.MortgageRateRepository;
+import com.mostafa.ing.mortgage.port.outbound.repository.MortgageRateRepository;
 import com.mostafa.ing.mortgage.repository.inmemory.config.InMemoryProperties;
 import com.mostafa.ing.mortgage.repository.inmemory.mapper.MortgageRateEntityMapper;
 import lombok.extern.slf4j.Slf4j;

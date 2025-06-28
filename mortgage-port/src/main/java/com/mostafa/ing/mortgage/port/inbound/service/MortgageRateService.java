@@ -1,4 +1,4 @@
-package com.mostafa.ing.mortgage.port.repository;
+package com.mostafa.ing.mortgage.port.inbound.service;
 
 import com.mostafa.ing.mortgage.model.MortgageRate;
 
@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Port interface for accessing mortgage rates repository.
+ * Port interface for Mortgage Rate Service.
  */
-public interface MortgageRateRepository {
+public interface MortgageRateService {
     /**
      * @return list of current mortgage rates
      */
