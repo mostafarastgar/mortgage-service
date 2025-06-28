@@ -25,8 +25,8 @@ Rest endpoints are exposed in mortgage-presentation as a driver adapter module. 
 We can be selective to package specific modules during build. It is useful for 
 determining how the final artifact should be crafted. It could be based on specific 
 driver and driven adapters. Such as rest with in-memory repository, rest with cassandra 
-repository, etc. This will be managed by Maven profiles. At the moment we only have one 
-profile which is `mortgage-in-memory`. It will package mortgage-core with 
+repository, etc. This will be managed by Maven profiles. At the moment, we only have one 
+profile called `mortgage-in-memory`. It will package mortgage-core with 
 mortgage-presentation as well as mortgage-repository-in-memory modules.
 
 ### build locally
