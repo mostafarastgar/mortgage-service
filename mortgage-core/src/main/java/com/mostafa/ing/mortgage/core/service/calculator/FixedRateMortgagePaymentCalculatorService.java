@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static com.mostafa.ing.mortgage.core.util.Constant.MONTHS_IN_YEAR;
@@ -29,10 +28,10 @@ public class FixedRateMortgagePaymentCalculatorService implements MortgagePaymen
         BigDecimal p = mortgageCheck.loanValue().value();
         BigDecimal r = mortgageRate.interestRate().divide(MONTHS_IN_YEAR.multiply(PERCENT),
                 ROUNDING_SCALE, RoundingMode.HALF_UP);
-        BigDecimal n = new BigDecimal(mortgageCheck.maturityPeriod().toTotalMonths());
-        if (BigDecimal.ZERO.equals(mortgageRate.interestRate())) {
+        BigDecimal n = BigDecimal.valueOf(mortgageCheck.maturityPeriod().toTotalMonths());
+        if (BigDecimal.ZERO.compareTo(mortgageRate.interestRate()) == 0) {
             return p.divide(n, ROUNDING_SCALE, RoundingMode.HALF_UP);
-        } else if (BigDecimal.ZERO.equals(mortgageCheck.loanValue().value())) {
+        } else if (BigDecimal.ZERO.compareTo(mortgageCheck.loanValue().value()) == 0) {
             return BigDecimal.ZERO;
         }
         return calculate(r, n, p);
@@ -66,26 +65,14 @@ public class FixedRateMortgagePaymentCalculatorService implements MortgagePaymen
                 n.doubleValue()));
     }
 
-    private static class RateKey {
-        private final BigDecimal rate;
-        private final BigDecimal period;
-
+    private record RateKey(BigDecimal rate,
+                           BigDecimal period) {
         public RateKey(BigDecimal rate, BigDecimal period) {
+            if (rate == null || period == null) {
+                throw new IllegalArgumentException("Rate and period must not be null");
+            }
             this.rate = rate.stripTrailingZeros();
             this.period = period.stripTrailingZeros();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof RateKey key)) return false;
-            return rate.compareTo(key.rate) == 0 &&
-                    period.compareTo(key.period) == 0;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(rate, period);
         }
     }
 }
