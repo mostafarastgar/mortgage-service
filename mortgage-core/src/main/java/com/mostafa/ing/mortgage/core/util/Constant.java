@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 @UtilityClass
 public class Constant {
     public static final BigDecimal MONTHS_IN_YEAR = new BigDecimal(12);
-    public static final BigDecimal INCOME_MULTIPLICAND = new BigDecimal(4);
     public static final int ROUNDING_SCALE = 10;
     public static final BigDecimal PERCENT = new BigDecimal(100);
 }

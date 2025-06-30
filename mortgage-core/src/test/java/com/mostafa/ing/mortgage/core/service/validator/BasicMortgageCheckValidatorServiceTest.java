@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BasicMortgageCheckValidatorServiceTest {
+    private static final BigDecimal INCOME_MULTIPLICAND = BigDecimal.valueOf(4);
 
     private BasicMortgageCheckValidatorService subject;
 
@@ -26,7 +27,7 @@ class BasicMortgageCheckValidatorServiceTest {
 
     @BeforeEach
     void setUp() {
-        subject = new BasicMortgageCheckValidatorService();
+        subject = new BasicMortgageCheckValidatorService(INCOME_MULTIPLICAND);
         mortgageCheck = new MortgageCheck(
                 new Amount(Currency.EUR, new BigDecimal("60000")),
                 Period.ofYears(30),
