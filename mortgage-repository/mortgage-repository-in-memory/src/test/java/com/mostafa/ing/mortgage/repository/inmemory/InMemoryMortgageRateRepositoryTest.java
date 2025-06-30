@@ -2,6 +2,7 @@ package com.mostafa.ing.mortgage.repository.inmemory;
 
 import com.mostafa.ing.mortgage.model.MortgageRate;
 import com.mostafa.ing.mortgage.repository.inmemory.config.InMemoryProperties;
+import com.mostafa.ing.mortgage.repository.inmemory.model.MortgagePeriod;
 import com.mostafa.ing.mortgage.repository.inmemory.model.MortgageRateEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class InMemoryMortgageRateRepositoryTest {
     @Spy
     private final InMemoryProperties inMemoryProperties =
-            new InMemoryProperties(List.of(new MortgageRateEntity(30,
+            new InMemoryProperties(List.of(new MortgageRateEntity(MortgagePeriod.of(Period.of(20, 10, 0)),
                     new BigDecimal("3.5"),
                     OffsetDateTime.now(ZoneId.systemDefault()))));
     @InjectMocks
@@ -31,27 +32,27 @@ class InMemoryMortgageRateRepositoryTest {
     @Test
     void testGetMortgageRates() {
         List<MortgageRate> mortgageRates = subject.getMortgageRates();
+        MortgageRateEntity mortgageRateEntity = inMemoryProperties.rates().getFirst();
 
         assertEquals(1, mortgageRates.size());
-        assertEquals(inMemoryProperties.rates().getFirst().interestRate(),
+        assertEquals(mortgageRateEntity.interestRate(),
                 mortgageRates.getFirst().interestRate());
-        assertEquals(inMemoryProperties.rates().getFirst().maturityPeriod(),
-                mortgageRates.getFirst().maturityPeriod().getYears());
-        assertEquals(inMemoryProperties.rates().getFirst().lastUpdate(),
+        assertEquals(mortgageRateEntity.maturityPeriod().toPeriod(),
+                mortgageRates.getFirst().maturityPeriod());
+        assertEquals(mortgageRateEntity.lastUpdate(),
                 mortgageRates.getFirst().lastUpdate());
     }
 
     @Test
     void testFindByPeriod() {
-        var period =
-                Period.ofYears(inMemoryProperties.rates().getFirst().maturityPeriod());
+        MortgageRateEntity mortgageRateEntity = inMemoryProperties.rates().getFirst();
+        var period = mortgageRateEntity.maturityPeriod().toPeriod();
         var mortgageRate = subject.findByPeriod(period).orElseThrow();
 
-        assertEquals(inMemoryProperties.rates().getFirst().interestRate(),
+        assertEquals(mortgageRateEntity.interestRate(),
                 mortgageRate.interestRate());
-        assertEquals(inMemoryProperties.rates().getFirst().maturityPeriod(),
-                mortgageRate.maturityPeriod().getYears());
-        assertEquals(inMemoryProperties.rates().getFirst().lastUpdate(),
+        assertEquals(period, mortgageRate.maturityPeriod());
+        assertEquals(mortgageRateEntity.lastUpdate(),
                 mortgageRate.lastUpdate());
     }
 

@@ -14,13 +14,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * This class only considers years for the period, e.g. 1 year, 2 years, etc.
+ * This class only considers years and months for the period.
  */
 @Repository
 @Slf4j
 public class InMemoryMortgageRateRepository implements MortgageRateRepository {
     private final InMemoryProperties inMemoryProperties;
-    private final Map<Integer, MortgageRate> mortgageRateMap;
+    private final Map<Long, MortgageRate> mortgageRateMap;
     private final List<MortgageRate> mortgageRateList;
 
     public InMemoryMortgageRateRepository(InMemoryProperties inMemoryProperties) {
@@ -28,7 +28,7 @@ public class InMemoryMortgageRateRepository implements MortgageRateRepository {
         mortgageRateList = this.inMemoryProperties.rates().stream()
                 .map(MortgageRateEntityMapper::toMortgageRate).toList();
         mortgageRateMap = mortgageRateList.stream().collect(Collectors.toMap(
-                mortgageRate -> mortgageRate.maturityPeriod().getYears(),
+                mortgageRate -> mortgageRate.maturityPeriod().toTotalMonths(),
                 maturityRate -> maturityRate));
     }
 
@@ -39,13 +39,13 @@ public class InMemoryMortgageRateRepository implements MortgageRateRepository {
     }
 
     /**
-     * @param period period for which the mortgage rate is requested. It only works
-     *               with years, e.g. 1 year, 2 years, etc.
+     * @param period period for which the mortgage rate is requested. It converts the period
+     *               to total months to match the keys in the in-memory map.
      * @return optional mortgage rate for the specified period, empty if not found
      */
     @Override
     public Optional<MortgageRate> findByPeriod(Period period) {
-        log.debug("Searching for mortgage rate with year period: {}", period.getYears());
-        return Optional.ofNullable(mortgageRateMap.get(period.getYears()));
+        log.debug("Searching for mortgage rate with year period: {}", period);
+        return Optional.ofNullable(mortgageRateMap.get(period.toTotalMonths()));
     }
 }
