@@ -1,0 +1,64 @@
+<svg width="900" height="500" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Hexagon boundary -->
+    <polygon points="450,100 600,200 600,350 450,450 300,350 300,200" fill="#fff3b0" stroke="#333" stroke-width="3"/>
+    <text x="450" y="200" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold"></text>
+
+    <!-- mortgage-port inside hexagon -->
+    <rect x="370" y="210" width="160" height="60" fill="#ffd580" stroke="#333"
+          stroke-width="2" rx="5" ry="5"/>
+    <text x="450" y="235" text-anchor="middle" font-family="Arial" font-size="14">
+        mortgage-port</text>
+    <text x="450" y="250" text-anchor="middle" font-family="Arial"
+          font-size="12">(ports + models)</text>
+
+    <!-- mortgage-core inside hexagon -->
+    <rect x="370" y="280" width="160" height="60" fill="#ffd580" stroke="#333"
+          stroke-width="2" rx="5" ry="5"/>
+    <text x="450" y="305" text-anchor="middle" font-family="Arial" font-size="14">mortgage-core</text>
+    <text x="450" y="320" text-anchor="middle" font-family="Arial" font-size="12">(business logic)</text>
+
+    <!-- mortgage-presentation -->
+    <rect x="50" y="200" width="200" height="100" fill="#add8e6" stroke="#333" stroke-width="2" rx="10" ry="10"/>
+    <text x="150" y="230" text-anchor="middle" font-family="Arial" font-size="14">mortgage-presentation</text>
+    <text x="150" y="250" text-anchor="middle" font-family="Arial" font-size="12">(Driver Adapter)</text>
+    <text x="150" y="270" text-anchor="middle" font-family="Arial" font-size="12">REST API</text>
+    <line x1="250" y1="250" x2="300" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- mortgage-repository-in-memory -->
+    <rect x="650" y="120" width="200" height="80" fill="#90ee90" stroke="#333" stroke-width="2" rx="10" ry="10"/>
+    <text x="750" y="150" text-anchor="middle" font-family="Arial" font-size="14">mortgage-repository</text>
+    <text x="750" y="170" text-anchor="middle" font-family="Arial" font-size="12">- in-memory (Driven)</text>
+    <line x1="618" y1="185" x2="650" y2="160" stroke="#333" stroke-width="2"
+          marker-start="url(#arrow-left)"/>
+
+    <!-- future adapters -->
+    <rect x="650" y="300" width="200" height="120" fill="#90c090" stroke="#333"
+          stroke-width="2" rx="10" ry="10"/>
+    <text x="750" y="330" text-anchor="middle" font-family="Arial" font-size="14">Future Driven Adapters</text>
+    <text x="750" y="350" text-anchor="middle" font-family="Arial" font-size="12">- mortgage-repo-rest</text>
+    <text x="750" y="370" text-anchor="middle" font-family="Arial" font-size="12">- mysql, cassandra, etc.</text>
+    <line x1="620" y1="355" x2="650" y2="360" stroke="#333" stroke-width="2"
+          marker-start="url(#arrow-left)"/>
+
+    <!-- Arrow marker -->
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#333" />
+        </marker>
+        <marker id="arrow-left" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M9,0 L9,6 L0,3 z" fill="#333" />
+        </marker>
+    </defs>
+
+    <!-- Outer bounding box for entire Mortgage Service -->
+    <rect x="20" y="60" width="860" height="410" fill="none" stroke="#666"
+          stroke-width="3" rx="15" ry="15" />
+
+    <!-- Label for the bounding box -->
+    <text x="450" y="85" text-anchor="middle" font-family="Arial" font-size="20"
+          font-weight="bold" fill="#333">
+        Mortgage Service
+    </text>
+
+</svg>

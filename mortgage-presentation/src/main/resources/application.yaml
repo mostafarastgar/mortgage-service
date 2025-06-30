@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: mortgage-service
+  profiles:
+    active: data
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health"

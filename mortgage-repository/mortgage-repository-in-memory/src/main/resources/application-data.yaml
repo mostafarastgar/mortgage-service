@@ -1,0 +1,16 @@
+mortgage:
+  repository:
+    in-memory:
+      rates:
+        - maturityPeriod:
+            years: 30
+          interestRate: 4.5
+          lastUpdate: "2025-06-25T00:00:00Z"
+        - maturityPeriod:
+            years: 20
+          interestRate: 3.5
+          lastUpdate: "2025-06-25T00:00:00Z"
+        - maturityPeriod:
+            years: 10
+          interestRate: 3.0
+          lastUpdate: "2025-06-25T00:00:00Z"
